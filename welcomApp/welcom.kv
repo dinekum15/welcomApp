@@ -1,32 +1,37 @@
-<LoginWindow>:
-	name: 'login'
-	userName: userName
-	lastName: lastName
-	hidden: hidden
+ScreenManager:
+	LoginScreen:
+		name: 'login'
+		id: login_screen
+	MainScreen:
+		name: 'main'
+		id: main_screen
+
+<LoginScreen>:
 	FloatLayout:
 		Label:
-			text:"User Name: "
+			text:"Staff No: "
 			font_size: (root.width**2 + root.height**2) / 13**4
 			pos_hint: {"x":0.1, "top":0.9}
 			size_hint: 0.35, 0.06
 
 		TextInput:
-			id: userName
+			id: staffno
 			font_size: (root.width**2 + root.height**2) / 13**4
 			multiline: False
 			pos_hint: {"x": 0.45 , "top":0.9}
 			size_hint: 0.35, 0.06
 
 		Label:
-			text:"Last Name: "
+			text:"Password: "
 			font_size: (root.width**2 + root.height**2) / 13**4
 			pos_hint: {"x":0.1, "top":0.7}
 			size_hint: 0.35, 0.06
 
 		TextInput:
-			id: lastName
+			id: pwd
 			font_size: (root.width**2 + root.height**2) / 13**4
 			multiline: False
+			password: True
 			pos_hint: {"x": 0.45, "top":0.7}
 			size_hint: 0.35, 0.06
 
@@ -34,42 +39,39 @@
 			pos_hint:{"x":0.3,"y":0.1}
 			size_hint: 0.4, 0.06
 			font_size: (root.width**2 + root.height**2) / 14**4
-			text: "Submit"
+			text: "login"
 			on_release:
 				root.manager.transition.direction = "left"
-				root.SubmitBtn()
+				app.login()
 		Label:
-			id: hidden
+			id: loginerror
 			font_size: (root.width**2 + root.height**2) / 15**4
 			pos_hint: {"x":0.3, "top":0.5}
 			size_hint: 0.4, 0.06
 
 
-<MainWindow>:
-	name: 'main'
-	fName: fName
-	lName: lName
+<MainScreen>:
 	FloatLayout:
 		Label:
-			text: 'Welcome'
+			text: 'Welcome:'
 			size_hint: 0.5, 0.2
 			font_size: (root.width**2 + root.height**2) / 14**4
-			pos_hint: {"x":0, "top":1}
+			pos_hint: {"center_x":0.5, "center_y":0.9}
 
 		Label:
-			id: fName
+			id: uName
 			font_size: (root.width**2 + root.height**2) / 13**4
-			pos_hint: {"x":0, "top":0.9}
+			pos_hint: {"center_x":0.5, "center_y":0.7}
 			size: 0.4, 0.1
 
 		Label:
-			id: lName
+			id: uStaffNo
 			font_size: (root.width**2 + root.height**2) / 13**4
-			pos_hint: {"x":0, "top":0.8}
+			pos_hint: {"center_x":0.5, "center_y":0.6}
 			size: 0.4, 0.1
 
 		Button:
-			pos_hint:{"x":0.3,"y":0.1}
+			pos_hint: {"center_x":0.5, "center_y":0.4}
 			size_hint: 0.4, 0.06
 			font_size: (root.width**2 + root.height**2) / 14**4
 			text: "back"
