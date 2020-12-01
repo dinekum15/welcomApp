@@ -7,7 +7,7 @@ from kivy.core.window import Window
 import json
 import requests
 
-#Window.size = (340, 600)
+Window.size = (340, 600)
 
 class LoginScreen(Screen):
 	pass
