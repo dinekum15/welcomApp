@@ -7,7 +7,7 @@ from kivy.core.window import Window
 import json
 import requests
 
-Window.size = (340, 600)
+#Window.size = (340, 600)
 
 class LoginScreen(Screen):
 	pass
@@ -15,14 +15,23 @@ class LoginScreen(Screen):
 class MainScreen(Screen):
 	pass
 
+class WindowManager(ScreenManager):
+	pass
+
+kv = Builder.load_file('welcom.kv')		
+wm = WindowManager()
+wm.add_widget(LoginScreen(name='login'))
+wm.add_widget(MainScreen(name='main'))
+wm.current='login'
+
 
 class welcomApp(App):
 	auth_key = 'PYLzTEO8YhZacPGceFwJe56pbRTazFZdDERAzP6I'
 	url = 'https://screendatabase-908ba.firebaseio.com/Users'
 		
 	def build(self):
-		kv = Builder.load_file('welcom.kv')
-		return kv
+		return wm
+	
 	def login(self):
 		#print(self.root.ids.login_screen.ids.staffno.text)
 		uid = self.root.ids.login_screen.ids.staffno.text
@@ -32,7 +41,7 @@ class welcomApp(App):
 			if self.validateLogin(uid, pwd):
 				self.logincheck = True
 				self.userInfo = self.GetFromDB(uid)
-				print(self.userInfo)
+				#print(self.userInfo)
 				self.welcom()
 				self.root.ids.login_screen.ids.staffno.text = ''
 				self.root.ids.login_screen.ids.pwd.text = ''
@@ -43,7 +52,7 @@ class welcomApp(App):
 			self.root.ids.login_screen.ids.loginerror.text = 'Enter your login details'
 	
 	def welcom(self):
-		self.root.current = 'main'
+		wm.current = 'main'
 		if self.logincheck:
 			self.root.ids.main_screen.ids.uName.text = self.userInfo['Name']
 			self.root.ids.main_screen.ids.uStaffNo.text = self.userInfo['Staff_No']

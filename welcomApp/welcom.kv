@@ -1,4 +1,5 @@
-ScreenManager:
+<WindowManager>:
+	id: screen_manager
 	LoginScreen:
 		name: 'login'
 		id: login_screen
@@ -10,26 +11,26 @@ ScreenManager:
 	FloatLayout:
 		Label:
 			text:"Staff No: "
-			font_size: (root.width**2 + root.height**2) / 13**4
+			#font_size: (root.width**2 + root.height**2) / 13**4
 			pos_hint: {"x":0.1, "top":0.9}
 			size_hint: 0.35, 0.06
 
 		TextInput:
 			id: staffno
-			font_size: (root.width**2 + root.height**2) / 13**4
+			#font_size: (root.width**2 + root.height**2) / 13**4
 			multiline: False
 			pos_hint: {"x": 0.45 , "top":0.9}
 			size_hint: 0.35, 0.06
 
 		Label:
 			text:"Password: "
-			font_size: (root.width**2 + root.height**2) / 13**4
+			#font_size: (root.width**2 + root.height**2) / 13**4
 			pos_hint: {"x":0.1, "top":0.7}
 			size_hint: 0.35, 0.06
 
 		TextInput:
 			id: pwd
-			font_size: (root.width**2 + root.height**2) / 13**4
+			#font_size: (root.width**2 + root.height**2) / 13**4
 			multiline: False
 			password: True
 			pos_hint: {"x": 0.45, "top":0.7}
@@ -38,14 +39,14 @@ ScreenManager:
 		Button:
 			pos_hint:{"x":0.3,"y":0.1}
 			size_hint: 0.4, 0.06
-			font_size: (root.width**2 + root.height**2) / 14**4
+			#font_size: (root.width**2 + root.height**2) / 14**4
 			text: "login"
 			on_release:
 				root.manager.transition.direction = "left"
 				app.login()
 		Label:
 			id: loginerror
-			font_size: (root.width**2 + root.height**2) / 15**4
+			#font_size: (root.width**2 + root.height**2) / 15**4
 			pos_hint: {"x":0.3, "top":0.5}
 			size_hint: 0.4, 0.06
 
@@ -55,25 +56,25 @@ ScreenManager:
 		Label:
 			text: 'Welcome:'
 			size_hint: 0.5, 0.2
-			font_size: (root.width**2 + root.height**2) / 14**4
+			#font_size: (root.width**2 + root.height**2) / 14**4
 			pos_hint: {"center_x":0.5, "center_y":0.9}
 
 		Label:
 			id: uName
-			font_size: (root.width**2 + root.height**2) / 13**4
+			#font_size: (root.width**2 + root.height**2) / 13**4
 			pos_hint: {"center_x":0.5, "center_y":0.7}
 			size: 0.4, 0.1
 
 		Label:
 			id: uStaffNo
-			font_size: (root.width**2 + root.height**2) / 13**4
+			#font_size: (root.width**2 + root.height**2) / 13**4
 			pos_hint: {"center_x":0.5, "center_y":0.6}
 			size: 0.4, 0.1
 
 		Button:
 			pos_hint: {"center_x":0.5, "center_y":0.4}
 			size_hint: 0.4, 0.06
-			font_size: (root.width**2 + root.height**2) / 14**4
+			#font_size: (root.width**2 + root.height**2) / 14**4
 			text: "back"
 			on_release:
 				root.manager.transition.direction = 'right'
