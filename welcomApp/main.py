@@ -10,13 +10,56 @@ import requests
 Window.size = (340, 600)
 
 class LoginScreen(Screen):
-	pass
+	staffno = ObjectProperty(None)
+	pwd = ObjectProperty(None)
+	loginerror = ObjectProperty(None)
+
+	def login(self):
+		uid = self.staffno.text
+		pwd = self.pwd.text
+		#print(uid, pwd)
+		
+		if uid!='' and pwd!='':
+			if validateLogin(uid, pwd):
+				wm.current = 'main'
+				MainScreen.userInfo = GetFromDB(uid)
+				MainScreen.logincheck=True
+				self.staffno.text = ''
+				self.pwd.text = ''
+				self.loginerror.text = ''
+			else:
+				self.loginerror.text = 'Incorrect staff no or password'
+		else:
+			self.loginerror.text = 'Enter your login details'
 
 class MainScreen(Screen):
-	pass
+	uName = ObjectProperty(None)
+	uStaffNo = ObjectProperty(None)
+	userInfo=''
+	logincheck=False
+	def on_enter(self):
+		if self.logincheck:
+			self.uName.text = self.userInfo['Name']
+			self.uStaffNo.text = self.userInfo['Staff_No']
 
 class WindowManager(ScreenManager):
 	pass
+
+def validateLogin(username, password):
+	url = f'{link}/{username}/.json'
+	data = requests.get(url+'?auth='+auth_key).json()
+	if username == data['Staff_No'] and password == data['Password']:
+		return True
+	else:
+		return False
+
+def GetFromDB(username):
+	url = f'{link}/{username}/.json'
+	data = requests.get(url+'?auth='+auth_key).json()
+	return data
+
+auth_key = 'PYLzTEO8YhZacPGceFwJe56pbRTazFZdDERAzP6I'
+link = 'https://screendatabase-908ba.firebaseio.com/Users'
 
 kv = Builder.load_file('welcom.kv')		
 wm = WindowManager()
@@ -26,47 +69,10 @@ wm.current='login'
 
 
 class welcomApp(App):
-	auth_key = 'PYLzTEO8YhZacPGceFwJe56pbRTazFZdDERAzP6I'
-	url = 'https://screendatabase-908ba.firebaseio.com/Users'
+	
 		
 	def build(self):
 		return wm
 	
-	def login(self):
-		#print(self.root.ids.login_screen.ids.staffno.text)
-		uid = self.root.ids.login_screen.ids.staffno.text
-		pwd = self.root.ids.login_screen.ids.pwd.text
-		self.logincheck = False
-		if uid!='' and pwd!='':
-			if self.validateLogin(uid, pwd):
-				self.logincheck = True
-				self.userInfo = self.GetFromDB(uid)
-				#print(self.userInfo)
-				self.welcom()
-				self.root.ids.login_screen.ids.staffno.text = ''
-				self.root.ids.login_screen.ids.pwd.text = ''
-				self.root.ids.login_screen.ids.loginerror.text = ''
-			else:
-				self.root.ids.login_screen.ids.loginerror.text = 'Incorrect staff no or password'
-		else:
-			self.root.ids.login_screen.ids.loginerror.text = 'Enter your login details'
-	
-	def welcom(self):
-		wm.current = 'main'
-		if self.logincheck:
-			self.root.ids.main_screen.ids.uName.text = self.userInfo['Name']
-			self.root.ids.main_screen.ids.uStaffNo.text = self.userInfo['Staff_No']
-	
-	def validateLogin(self, *args):
-		url = f'{self.url}/{args[0]}/.json'
-		data = requests.get(url+'?auth='+self.auth_key).json()
-		if args[0] == data['Staff_No'] and args[1] == data['Password']:
-			return True
-		else:
-			return False
-	def GetFromDB(self,*args):
-		url = f'{self.url}/{args[0]}/.json'
-		data = requests.get(url+'?auth='+self.auth_key).json()
-		return data
 
 welcomApp().run()

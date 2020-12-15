@@ -8,6 +8,10 @@
 		id: main_screen
 
 <LoginScreen>:
+	staffno: staffno
+	pwd: pwd
+	loginerror: loginerror
+
 	FloatLayout:
 		Label:
 			text:"Staff No: "
@@ -43,15 +47,18 @@
 			text: "login"
 			on_release:
 				root.manager.transition.direction = "left"
-				app.login()
+				root.login()
 		Label:
 			id: loginerror
+			color: [1,0,0,0.8]
 			#font_size: (root.width**2 + root.height**2) / 15**4
 			pos_hint: {"x":0.3, "top":0.5}
 			size_hint: 0.4, 0.06
 
 
 <MainScreen>:
+	uName: uName
+	uStaffNo: uStaffNo
 	FloatLayout:
 		Label:
 			text: 'Welcome:'
